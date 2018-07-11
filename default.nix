@@ -1153,8 +1153,8 @@ inherit (pkgs) zlib;};
            pname = "JuicyPixels-extra";
            version = "0.3.0";
            sha256 = "c5a03a9747bcd984924d6f7c9b4771188e297df82160e7d667ea8f4f671b0e22";
-           revision = "2";
-           editedCabalFile = "1lvqrm4qwncj1i9njckpg74wcdwpll3qyfmm3hlvd4n8gpl4r7lv";
+           revision = "3";
+           editedCabalFile = "1xr4vjhzjw3ynibb6693dhcz2jbvbx4yg2bir8w2s98n37gwsxd7";
            enableSeparateDataOutput = true;
            libraryHaskellDepends = [ base JuicyPixels ];
            doHaddock = false;
@@ -1171,6 +1171,8 @@ inherit (pkgs) zlib;};
            pname = "JuicyPixels-scale-dct";
            version = "0.1.2";
            sha256 = "f7381b88446224897e6677692bbdc39cb5b755216212f0ad8050046865cd3013";
+           revision = "1";
+           editedCabalFile = "1snx05qpllybd9yvy03p0lpnmimj0m24x1bxa4svxcsiv56yv9w8";
            libraryHaskellDepends = [
              base base-compat carray fft JuicyPixels
            ];
@@ -12060,10 +12062,10 @@ inherit (pkgs) mesa;};
       "eta" = callPackage
         ({ mkDerivation, aeson, alex, array, base, binary, bytestring
          , codec-jvm, containers, cpphs, deepseq, directory, eta-boot
-         , eta-boot-meta, eta-meta, eta-repl, exceptions, filepath, gitrev
-         , Glob, happy, haskeline, hpc, hpp, mtl, path, path-io, process
-         , semigroups, stdenv, tasty, tasty-golden, text, time, transformers
-         , turtle, typed-process, unix, unix-compat, zip
+         , eta-boot-meta, eta-meta, eta-repl, exceptions, extra, filepath
+         , gitrev, Glob, happy, haskeline, hpc, hpp, mtl, path, path-io
+         , process, semigroups, stdenv, tasty, tasty-golden, text, time
+         , transformers, turtle, typed-process, unix, unix-compat, zip
          }:
          mkDerivation {
            pname = "eta";
@@ -12080,8 +12082,8 @@ inherit (pkgs) mesa;};
            libraryToolDepends = [ alex happy ];
            executableHaskellDepends = [
              aeson array base bytestring containers deepseq directory eta-boot
-             eta-repl filepath Glob haskeline process tasty tasty-golden text
-             time transformers turtle typed-process unix
+             eta-repl extra filepath Glob haskeline process tasty tasty-golden
+             text time transformers turtle typed-process unix
            ];
            doHaddock = false;
            doCheck = false;
@@ -12932,8 +12934,8 @@ inherit (pkgs) mesa;};
            pname = "fclabels";
            version = "2.0.3.3";
            sha256 = "9a9472a46dc23b5acc0545d345ecd708f7b003f72ab212e2d12125b902b9c2e0";
-           revision = "1";
-           editedCabalFile = "0fs17vv85ybl3ws8k25sg758vq49l19vhn4asm8r6q5j9xic2kvl";
+           revision = "2";
+           editedCabalFile = "0mn82r0h9zhdsaf7qz45fcps6y1kdkqi8xf8dsz8419by2x5ygfx";
            libraryHaskellDepends = [ base mtl template-haskell transformers ];
            doHaddock = false;
            doCheck = false;
@@ -30194,6 +30196,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "rasterific-svg";
            version = "0.3.3.1";
            sha256 = "d6b5ea1318b6cca165fee1fae91116878ef72918eca6e7a118624bf56add1184";
+           revision = "1";
+           editedCabalFile = "0mhg2k786zx1cmblijnz73cf12h1s5grmkc0wb63612hnxxz53i7";
            isLibrary = true;
            isExecutable = true;
            libraryHaskellDepends = [
@@ -37942,8 +37946,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "union";
            version = "0.1.1.2";
            sha256 = "7ce28e082940e184a255459b29356b7d39e3421cb37b01ee1ed067437165d382";
-           revision = "3";
-           editedCabalFile = "1llczfg153qqrkp2biqaa9qqyzy6li5cnxbyp5p24d7f2dr0d5fc";
+           revision = "4";
+           editedCabalFile = "1pxx0bkvzglik34xkwza6zqcs98r2sqn5932xmcaah189qlsjq47";
            libraryHaskellDepends = [ base deepseq profunctors tagged vinyl ];
            doHaddock = false;
            doCheck = false;
@@ -41389,8 +41393,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "yesod-bin";
            version = "1.6.0.3";
            sha256 = "e4db295b4c651c205a1730df38501c217d9b600f3dbc1eea21d5fa47e832aedc";
-           revision = "1";
-           editedCabalFile = "0dr9i8jisp5vd0pz6pckdiax1ynm9rhgjjr2xhxlrlfy24k14gg3";
+           revision = "2";
+           editedCabalFile = "0h4nam6zkhz7km0z5z3zngnrgif7a42llvh013iava171kadn8xp";
            isLibrary = false;
            isExecutable = true;
            executableHaskellDepends = [
