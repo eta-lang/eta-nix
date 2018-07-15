@@ -2371,8 +2371,8 @@ inherit (pkgs.xorg) libXrender;};
            pname = "active";
            version = "0.2.0.13";
            sha256 = "5d9a141d58bcefbf699ed233a22309ded671c25ed64bcee11a663d00731280fb";
-           revision = "5";
-           editedCabalFile = "0hwla9xz275qzgn9n07311ksl3j40izidki1nbhmrmmmfjin57cv";
+           revision = "6";
+           editedCabalFile = "0zq9j2hgapb9blvmd9y8kmczizw4a18kksnfqd1py1jzx7hr46n3";
            libraryHaskellDepends = [
              base lens linear semigroupoids semigroups vector
            ];
@@ -12064,8 +12064,8 @@ inherit (pkgs) mesa;};
          , codec-jvm, containers, cpphs, deepseq, directory, eta-boot
          , eta-boot-meta, eta-meta, eta-repl, exceptions, extra, filepath
          , gitrev, Glob, happy, haskeline, hpc, hpp, mtl, path, path-io
-         , process, semigroups, stdenv, tasty, tasty-golden, text, time
-         , transformers, turtle, typed-process, unix, unix-compat, zip
+         , process, process-extras, semigroups, stdenv, tasty, tasty-golden
+         , text, time, transformers, turtle, unix, unix-compat, zip
          }:
          mkDerivation {
            pname = "eta";
@@ -12082,8 +12082,8 @@ inherit (pkgs) mesa;};
            libraryToolDepends = [ alex happy ];
            executableHaskellDepends = [
              aeson array base bytestring containers deepseq directory eta-boot
-             eta-repl extra filepath Glob haskeline process tasty tasty-golden
-             text time transformers turtle typed-process unix
+             eta-repl extra filepath Glob haskeline process process-extras tasty
+             tasty-golden text time transformers turtle unix
            ];
            doHaddock = false;
            doCheck = false;
@@ -12217,7 +12217,7 @@ inherit (pkgs) mesa;};
          }:
          mkDerivation {
            pname = "etlas";
-           version = "1.4.0.1";
+           version = "1.4.0.2";
            src = ./etlas/etlas;
            isLibrary = true;
            isExecutable = true;
@@ -12241,7 +12241,7 @@ inherit (pkgs) mesa;};
          }:
          mkDerivation {
            pname = "etlas-cabal";
-           version = "1.4.0.1";
+           version = "1.4.0.2";
            src = ./etlas/etlas-cabal;
            libraryHaskellDepends = [
              array base binary bytestring containers deepseq directory filepath
@@ -24341,8 +24341,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "mmark";
            version = "0.0.5.6";
            sha256 = "fc036385fd4cea07a490df00d8fe443cc6656a6d090d537d4d5e860564ef1234";
-           revision = "4";
-           editedCabalFile = "0jc342mpqp1s6s9al7dyky54wpvbx6a1jl8yljmwgmhafrbg1kdk";
+           revision = "5";
+           editedCabalFile = "1m4l42g519hnzjaafsnbjcfr0nrf28x1lmc1kjh5swrg6qd3kf29";
            enableSeparateDataOutput = true;
            libraryHaskellDepends = [
              aeson base case-insensitive containers data-default-class deepseq
@@ -28293,8 +28293,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "pipes-random";
            version = "1.0.0.4";
            sha256 = "542a07e7d7aafa87201c1f00c4e98ac8f59707f776ea03b1f6f117273608659e";
-           revision = "1";
-           editedCabalFile = "0m32wz3rwxx9gdcl1chk64yspyd1ls13z03zcgjcn865mpbhz97h";
+           revision = "2";
+           editedCabalFile = "0czw2qfi05d5kbnwzhzr75j1ag6hfbn9nvbjyifdjradfzjxl2s9";
            libraryHaskellDepends = [ base mwc-random pipes vector ];
            doHaddock = false;
            doCheck = false;
@@ -31569,6 +31569,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "sampling";
            version = "0.3.3";
            sha256 = "c8bedc93d61e6b1939f6802d7e21003e9e36abdd6f21a9651179d4d82aa00e0d";
+           revision = "1";
+           editedCabalFile = "168k8ykppa8pikfxy1gmby63kfzr833vswh8wcchz8li9vkd4w2h";
            libraryHaskellDepends = [
              base containers foldl mwc-random primitive vector
            ];
@@ -32732,14 +32734,14 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "servant-yaml";
            version = "0.1.0.0";
            sha256 = "c917d9b046b06a9c4386f743a78142c27cf7f0ec1ad8562770ab9828f2ee3204";
-           revision = "20";
-           editedCabalFile = "0g13cchj5wnjpypsj9fgwk4ypy8xzzwrpry2f9zlsyp0lvkqjqrw";
+           revision = "21";
+           editedCabalFile = "1xrlhbgh54ny4xiqcdbka7i86wkyyqndwwv3r3k47xdr5683iyc1";
            libraryHaskellDepends = [
              base bytestring http-media servant yaml
            ];
            doHaddock = false;
            doCheck = false;
-           homepage = "https://github.com/phadej/servant-yaml#readme";
+           homepage = "https://github.com/haskell-servant/servant-yaml#readme";
            description = "Servant support for yaml";
            license = stdenv.lib.licenses.bsd3;
          }) {};
@@ -34092,8 +34094,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "stache";
            version = "1.2.1";
            sha256 = "6bfbdd2755c606f7b146243db1eefc2f49c720264ba9072a9d170a1bbdbc113b";
-           revision = "6";
-           editedCabalFile = "1h4llrsmd270vnw7fxzvw1a22bdkm3srdf5f3v19pbcgm2ahadsj";
+           revision = "7";
+           editedCabalFile = "08i636hsi0znrm3ma7z2wknma06aa4xzfqwy0z4x9d7vn7fscm48";
            enableSeparateDataOutput = true;
            libraryHaskellDepends = [
              aeson base bytestring containers deepseq directory filepath
@@ -34215,8 +34217,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "statistics";
            version = "0.14.0.2";
            sha256 = "3495df2da42c9fcc5b594b97f16c02353bfd6616d6e134ac031dac389d7a4778";
-           revision = "1";
-           editedCabalFile = "0gg7hq8qvbnhp7lnrykh401ggr51izffylgdmy6nip2a81q9dxi0";
+           revision = "2";
+           editedCabalFile = "1bx70yqkn62ii17fjv3pig4hklrzkqd09zj67zzjiyjzmn04fir3";
            libraryHaskellDepends = [
              aeson base base-orphans binary deepseq erf math-functions monad-par
              mwc-random primitive vector vector-algorithms
@@ -38794,8 +38796,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "vector";
            version = "0.12.0.1";
            sha256 = "b100ee79b9da2651276278cd3e0f08a3c152505cc52982beda507515af173d7b";
-           revision = "2";
-           editedCabalFile = "0vzr8kra73anchp86knkmkq2afkd1hw6hirldn9vn69frynb1n6y";
+           revision = "3";
+           editedCabalFile = "0y5rh8k710i2a3p1h2rghvr5cfg78p5h0kbfi7ifxqqf6pzlyr1x";
            libraryHaskellDepends = [
              base deepseq ghc-prim primitive semigroups
            ];
