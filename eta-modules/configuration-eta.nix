@@ -8,6 +8,12 @@ self: super: {
   ghc-boot-th = null;
   unix = null;
 
+  mtl = self.mtl_2_2_2 or super.mtl;
+  stm = self.stm_2_4_5_0 or super.stm;
+
+  transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
+  free = addBuildDepend super.free self.fail;
+
   rts = callPackage
     ({ mkDerivation, stdenv }:
     mkDerivation {

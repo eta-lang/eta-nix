@@ -40,6 +40,7 @@ in
 , testHaskellDepends ? []
 , benchmarkHaskellDepends ? []
 , testToolDepends ? []
+, hydraPlatforms ? null
 , isExecutable ? false, isLibrary ? !isExecutable
 , license
 , preConfigure ? ""

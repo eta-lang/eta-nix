@@ -62,10 +62,14 @@ let
           packages = selectFrom self;
         };
     };
-  etaHackagePackages = self: _: import ./eta-hackage-packages.nix {
-    inherit pkgs stdenv;
-    inherit (self) callPackage;
-  } self;
+  etaHackagePackages = self: _:
+    builtins.removeAttrs
+      (import ./eta-hackage-packages.nix {
+        inherit pkgs stdenv;
+        inherit (self) callPackage;
+      } self)
+      # Use these versions from nixpkgs instead of eta-hackage
+      [ "free" ];
   configurationEta = self: import ./configuration-eta.nix {
     inherit pkgs haskellLib rtsjar;
     inherit (self) callPackage;
