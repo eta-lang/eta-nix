@@ -1216,8 +1216,8 @@ inherit (pkgs) zlib;};
            pname = "ListLike";
            version = "4.6";
            sha256 = "c1cdec79a5f585a5839eea26a2afe6a37aab5ed2f402a16e7d59fe9a4e925a9a";
-           revision = "1";
-           editedCabalFile = "1mbfywf17nnwy2mc15zrsv0j30y1dpblim49nmndpbygq8j26y8j";
+           revision = "2";
+           editedCabalFile = "1mca2r4gjznqdh4kck5cjkn53isgkhvkf3ri09qsn7nsssvgki0g";
            libraryHaskellDepends = [
              array base bytestring containers deepseq dlist fmlist semigroups
              text utf8-string vector
@@ -7992,8 +7992,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.1";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/codec-jvm; echo source root reset to $sourceRoot";
            isLibrary = true;
@@ -12064,8 +12064,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4.1";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            isLibrary = true;
            isExecutable = true;
@@ -12094,8 +12094,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/libraries/eta-boot; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [
@@ -12113,8 +12113,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/libraries/eta-boot-meta; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [ base ];
@@ -12132,8 +12132,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.0.0";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/shake; echo source root reset to $sourceRoot";
            isLibrary = false;
@@ -12154,8 +12154,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4.1";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/libraries/eta-meta; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [
@@ -12176,8 +12176,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4.1";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/utils/eta-pkg; echo source root reset to $sourceRoot";
            isLibrary = false;
@@ -12200,8 +12200,8 @@ inherit (pkgs.xorg) libXfixes;};
            version = "0.8.4.1";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/libraries/eta-repl; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [
@@ -12239,15 +12239,16 @@ inherit (pkgs.xorg) libXfixes;};
          , bytestring, Cabal, containers, cryptohash-sha256, deepseq
          , directory, echo, edit-distance, etlas-cabal, fetchgit, filepath
          , hackage-security, hashable, HTTP, mtl, network, network-uri
-         , pretty, process, random, stdenv, stm, tar, time, unix, zlib
+         , parsec, pretty, process, random, stdenv, stm, tar, time, unix
+         , zlib
          }:
          mkDerivation {
            pname = "etlas";
            version = "1.4.0.2";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/etlas/etlas; echo source root reset to $sourceRoot";
            isLibrary = true;
@@ -12257,7 +12258,7 @@ inherit (pkgs.xorg) libXfixes;};
              array async base base16-bytestring binary bytestring containers
              cryptohash-sha256 deepseq directory echo edit-distance etlas-cabal
              filepath hackage-security hashable HTTP mtl network network-uri
-             pretty process random stm tar time unix zlib
+             parsec pretty process random stm tar time unix zlib
            ];
            executableHaskellDepends = [ base directory etlas-cabal filepath ];
            doHaddock = false;
@@ -12268,21 +12269,21 @@ inherit (pkgs.xorg) libXfixes;};
          }) {};
       "etlas-cabal" = callPackage
         ({ mkDerivation, array, base, binary, bytestring, containers
-         , deepseq, directory, fetchgit, filepath, pretty, process, stdenv
-         , time, unix
+         , deepseq, directory, fetchgit, filepath, parsec, pretty, process
+         , stdenv, time, unix
          }:
          mkDerivation {
            pname = "etlas-cabal";
            version = "1.4.0.2";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/etlas/etlas-cabal; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [
              array base binary bytestring containers deepseq directory filepath
-             pretty process time unix
+             parsec pretty process time unix
            ];
            doHaddock = false;
            doCheck = false;
@@ -14653,6 +14654,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "ghc-syb-utils";
            version = "0.2.3.3";
            sha256 = "5f4276c987883b487e687a596bb2ecb67a76027b4b1817b55b53acd92666473a";
+           revision = "1";
+           editedCabalFile = "06h9zm71d04ibxpgnhcrpnmw0dd1fj4lbfz85q5idmflpd2djk7w";
            libraryHaskellDepends = [ base ghc syb ];
            doHaddock = false;
            doCheck = false;
@@ -15838,8 +15841,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            version = "0.5.2.2";
            src = fetchgit {
              url = "https://github.com/typelead/eta.git";
-             sha256 = "06xhfq1vd0gljr5rfdrnnj124hjyy43alyj9i8p3pwj7yqydrjqn";
-             rev = "5b1ea5752fd1aba5a50ca673ccd9e041e131020f";
+             sha256 = "0hi9v7wli9707v7l8ync9brgqzd7ajvxdc854infx15z3pdbn9dk";
+             rev = "8dcdd2933871ddfcbce63a67d7b8b8beee33ce47";
            };
            postUnpack = "sourceRoot+=/etlas/hackage-security/hackage-security; echo source root reset to $sourceRoot";
            libraryHaskellDepends = [
@@ -31425,6 +31428,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "rss-conduit";
            version = "0.4.2.1";
            sha256 = "b8f52cc3e899477c6f2642ea6d4abc6fa9c74fc6c08a8f990d50a79aff605712";
+           revision = "1";
+           editedCabalFile = "07y37q2a8wlgx9ay62bl0z6fgyqiypmfq0nzbnz766ac3jy7l42m";
            libraryHaskellDepends = [
              atom-conduit base conduit conduit-combinators containers
              dublincore-xml-conduit lens-simple safe safe-exceptions singletons
@@ -42226,6 +42231,8 @@ inherit (pkgs) libjpeg; inherit (pkgs) libpng; inherit (pkgs) zlib;};
            pname = "ztail";
            version = "1.2.0.2";
            sha256 = "a14341d51da6dbef9f0edcdefe185dbd7726880ec4e230855fb9871de7c07717";
+           revision = "1";
+           editedCabalFile = "0d0cpgb0v849zxl12c2gkm3x4nmyfycka1pcfix43lawx62rky8s";
            isLibrary = false;
            isExecutable = true;
            executableHaskellDepends = [
