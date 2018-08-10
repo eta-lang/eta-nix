@@ -68,8 +68,7 @@ let
         inherit pkgs stdenv;
         inherit (self) callPackage;
       } self)
-      # Use these versions from nixpkgs instead of eta-hackage
-      [ "free" ];
+      (import ./ignore-patch-list.nix);
   configurationEta = self: import ./configuration-eta.nix {
     inherit pkgs haskellLib rtsjar;
     inherit (self) callPackage;
