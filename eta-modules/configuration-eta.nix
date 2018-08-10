@@ -11,8 +11,11 @@ self: super: {
   mtl = self.mtl_2_2_2 or super.mtl;
   stm = self.stm_2_4_5_0 or super.stm;
 
-  transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
+  ansi-wl-pprint = addBuildDepend super.ansi-wl-pprint self.semigroups;
+  cereal = addBuildDepend super.cereal self.fail;
   free = addBuildDepend super.free self.fail;
+  parser-combinators = addBuildDepend super.parser-combinators self.semigroups;
+  transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
 
   rts = callPackage
     ({ mkDerivation, stdenv }:
