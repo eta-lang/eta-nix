@@ -17,6 +17,19 @@ self: super: {
   parser-combinators = addBuildDepend super.parser-combinators self.semigroups;
   transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
 
+  eta-serv = callPackage
+    ({ mkDerivation, stdenv }:
+    mkDerivation {
+      pname = "eta-serv";
+      version = "0.8.4.1";
+      src = etaSrc + "/eta-serv";
+      libraryHaskellDepends = [
+        self.base self.eta-repl self.eta-meta self.bytestring self.deepseq
+        self.directory self.filepath
+      ];
+      license = stdenv.lib.licenses.bsd3;
+    }) {};
+
   rts = callPackage
     ({ mkDerivation, stdenv }:
     mkDerivation {
