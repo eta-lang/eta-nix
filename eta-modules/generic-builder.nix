@@ -32,11 +32,11 @@ in
 , version, revision ? null
 , sha256 ? null
 , src ? fetchurl { url = "mirror://hackage/${pname}-${version}.tar.gz"; inherit sha256; }
-, buildDepends ? []
-, editedCabalFile ? null
-, setupHaskellDepends ? [], libraryHaskellDepends ? []
+, buildDepends ? [], setupHaskellDepends ? [], libraryHaskellDepends ? [], executableHaskellDepends ? []
+, configureFlags ? []
 , description ? ""
 , doCheck ? true
+, editedCabalFile ? null
 , testHaskellDepends ? []
 , benchmarkHaskellDepends ? []
 , testToolDepends ? []
@@ -47,6 +47,7 @@ in
 , preBuild ? ""
 , postInstall ? ""
 , homepage ? "https://hackage.haskell.org/package/${pname}"
+, enableSeparateDataOutput ? false
 }:
 stdenv.mkDerivation ({
   name = "${pname}-${version}";
@@ -55,7 +56,7 @@ stdenv.mkDerivation ({
 
   buildInputs = [ jdk etlasWrapper buildHaskellPackages.eta-pkg ];
 
-  propagatedBuildInputs = buildDepends ++ libraryHaskellDepends;
+  propagatedBuildInputs = buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends;
 
   prePhases = [ "setupCompilerEnvironmentPhase" ];
   setupCompilerEnvironmentPhase = ''
