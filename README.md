@@ -1,3 +1,6 @@
-From a clone of the [Eta repository](https://github.com/typelead/eta):
-
-    stack2nix --stack-yaml stack-8.2.2.yaml . > ../eta-nix/default.nix
+```bash
+git clone -b etaPackages git@github.com:eta-lang/eta-nix.git
+mkdir -p ~/.config/nixpkgs/overlays
+ln -s $PWD/eta-nix/overlay.nix ~/.config/nixpkgs/overlays/eta-overlay.nix
+nix-shell -p 'etaPackages.etaWithPackages (p: [ p.lens ])' --run 'eta Main.hs'
+```
