@@ -25,13 +25,24 @@ in
 , hydraPlatforms ? null
 , isExecutable ? false, isLibrary ? !isExecutable
 , license
+, prePatch ? ""
 , preConfigure ? "", postConfigure ? ""
 , preBuild ? "", postBuild ? ""
 , installPhase ? "", preInstall ? "", postInstall ? ""
 , homepage ? "https://hackage.haskell.org/package/${pname}"
 , enableSeparateDataOutput ? false
 }:
+
+assert editedCabalFile != null -> revision != null;
+
 let
+  newCabalFileUrl = "http://hackage.haskell.org/package/${pname}-${version}/revision/${revision}.cabal";
+  newCabalFile = fetchurl {
+    url = newCabalFileUrl;
+    sha256 = editedCabalFile;
+    name = "${pname}-${version}-r${revision}.cabal";
+  };
+
   defaultConfigureFlags = [
     "--verbose" "--prefix=$out" "--libdir=\\$prefix/lib/\\$compiler" "--libsubdir=\\$pkgid"
     "--datadir=$data/share/${buildHaskellPackages.eta.name}"
@@ -72,18 +83,15 @@ stdenv.mkDerivation ({
     echo "\$PATH\n\$PATH\n\$PATH" > "$HOME/.etlas/binaries/eta"
     cat "${etlasConfig}" > "$HOME/.etlas/config"
   '';
-  prePatch = ''
+  prePatch = stdenv.lib.optionalString (editedCabalFile != null) ''
+    echo "Replace Cabal file with edited version from ${newCabalFileUrl}."
+    cp ${newCabalFile} ${pname}.cabal
+  '' + ''
     ETA_PATCH="${eta-hackage}/patches/${pname}-${version}.patch"
     if [ -e "$ETA_PATCH" ]; then
       patches=("$ETA_PATCH")
     fi
-  '';
-  postPatch = ''
-    ETA_CABAL="${eta-hackage}/patches/${pname}-${version}.cabal"
-    if [ -e "$ETA_CABAL" ]; then
-      cp "$ETA_CABAL" "${pname}.cabal"
-    fi
-  '';
+  '' + prePatch;
 
   inherit configureFlags;
   # Etlas doesn't persist most configure flags.
