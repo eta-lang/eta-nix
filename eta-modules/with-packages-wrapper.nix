@@ -17,7 +17,7 @@ runCommandNoCC "eta-with-packages" {
 
   for p in $paths; do
     if [ -d "$p/lib/${buildHaskellPackages.eta.name}/package.conf.d" ]; then
-      cp -f "$p/lib/${buildHaskellPackages.eta.name}/package.conf.d/"*.conf "$packageConfDir/"
+      cp -f "$p/lib/${buildHaskellPackages.eta.name}/package.conf.d/"*.conf "$packageConfDir/" || true
     fi
   done
 

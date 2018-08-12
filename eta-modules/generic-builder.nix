@@ -9,16 +9,6 @@ let
     send-metrics: False
     remote-build-reporting: none
   '';
-
-  etlasWrapper = runCommandNoCC "etlas-wrapper" {
-    nativeBuildInputs = [ makeWrapper ];
-  } ''
-    makeWrapper ${buildHaskellPackages.etlas}/bin/etlas $out/bin/etlas \
-      --run 'export HOME="$TMPDIR/home"' \
-      --run 'mkdir -p "$HOME/.etlas/binaries"' \
-      --run 'echo "\$PATH\n\$PATH\n\$PATH" > "$HOME/.etlas/binaries/eta"' \
-      --run 'cat "${etlasConfig}" > $HOME/.etlas/config'
-    '';
 in
 { pname
 , version, revision ? null
@@ -35,18 +25,28 @@ in
 , hydraPlatforms ? null
 , isExecutable ? false, isLibrary ? !isExecutable
 , license
-, preConfigure ? ""
-, preBuild ? ""
-, postInstall ? ""
+, preConfigure ? "", postConfigure ? ""
+, preBuild ? "", postBuild ? ""
+, installPhase ? "", preInstall ? "", postInstall ? ""
 , homepage ? "https://hackage.haskell.org/package/${pname}"
 , enableSeparateDataOutput ? false
 }:
+let
+  defaultConfigureFlags = [
+    "--verbose" "--prefix=$out" "--libdir=\\$prefix/lib/\\$compiler" "--libsubdir=\\$pkgid"
+    "--datadir=$data/share/${buildHaskellPackages.eta.name}"
+    "--docdir=$doc/share/doc/${pname}-${version}"
+    "--package-db=$packageConfDir"
+    "--allow-newer=base"
+  ];
+in
 stdenv.mkDerivation ({
   name = "${pname}-${version}";
   inherit src;
   outputs = [ "out" "data" "doc" ];
+  setOutputFlags = false;
 
-  buildInputs = [ jdk etlasWrapper buildHaskellPackages.eta buildHaskellPackages.eta-pkg ];
+  buildInputs = [ jdk buildHaskellPackages.etlas buildHaskellPackages.eta buildHaskellPackages.eta-pkg ];
 
   propagatedBuildInputs = buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends;
 
@@ -63,6 +63,14 @@ stdenv.mkDerivation ({
     done
 
     HOME="$TMPDIR/home" eta-pkg --package-db="$packageConfDir" recache
+
+    configureFlags="${stdenv.lib.concatStringsSep " " defaultConfigureFlags} $configureFlags"
+
+    # Make Etlas work
+    export HOME="$TMPDIR/home"
+    mkdir -p "$HOME/.etlas/binaries"
+    echo "\$PATH\n\$PATH\n\$PATH" > "$HOME/.etlas/binaries/eta"
+    cat "${etlasConfig}" > "$HOME/.etlas/config"
   '';
   prePatch = ''
     ETA_PATCH="${eta-hackage}/patches/${pname}-${version}.patch"
@@ -76,35 +84,35 @@ stdenv.mkDerivation ({
       cp "$ETA_CABAL" "${pname}.cabal"
     fi
   '';
+
+  inherit configureFlags;
   # Etlas doesn't persist most configure flags.
-  # We supply the flags for each step as a workaround for now.
   # https://github.com/typelead/etlas/issues/62
   configurePhase = ''
     runHook preConfigure
 
     etlas \
       old-configure \
-      --package-db="$packageConfDir" \
-      --allow-newer=base
+      $configureFlags
+
+    runHook postConfigure
   '';
   # Supplying the flags will reconfigure, so install will build again,
   # let's just skip build for now.
   buildPhase = ''
     runHook preBuild
 
-    # etlas \
-    #   old-build
-  '';
-  installPhase = ''
     etlas \
-      old-install \
-      --package-db="$packageConfDir" \
-      --disable-tests \
-      --bindir="$out/bin" \
-      --libdir="$out/lib" \
-      --datadir="$data/share/${buildHaskellPackages.eta.name}" \
-      --docdir="$doc/share/doc/${pname}-${version}" \
-      --allow-boot-library-installs
+      old-build
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    etlas \
+      copy
 
     packageConfDir="$out/lib/${buildHaskellPackages.eta.name}/package.conf.d"
     packageConfFile="$packageConfDir/${pname}-${version}.conf"
@@ -117,6 +125,10 @@ stdenv.mkDerivation ({
   '';
 }
 // stdenv.lib.optionalAttrs (preConfigure != "")   { inherit preConfigure; }
+// stdenv.lib.optionalAttrs (postConfigure != "")  { inherit postConfigure; }
 // stdenv.lib.optionalAttrs (preBuild != "")       { inherit preBuild; }
+// stdenv.lib.optionalAttrs (postBuild != "")      { inherit postBuild; }
+// stdenv.lib.optionalAttrs (preInstall != "")     { inherit preInstall; }
+// stdenv.lib.optionalAttrs (installPhase != "")   { inherit installPhase; }
 // stdenv.lib.optionalAttrs (postInstall != "")    { inherit postInstall; }
 )
