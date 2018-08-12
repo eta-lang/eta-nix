@@ -23,6 +23,7 @@ self: super: {
       pname = "eta-serv";
       version = "0.8.4.1";
       src = etaSrc + "/eta-serv";
+      configureFlags = [ "--enable-uberjar-mode" ];
       libraryHaskellDepends = [
         self.base self.eta-repl self.eta-meta self.bytestring self.deepseq
         self.directory self.filepath

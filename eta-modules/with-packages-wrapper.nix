@@ -4,6 +4,7 @@
 , makeWrapper
 , buildHaskellPackages
 , packages
+, eta-serv
 }:
 let
   paths = lib.closePropagation packages;
@@ -26,7 +27,8 @@ runCommandNoCC "eta-with-packages" {
     --add-flags "--global-package-db=$packageConfDir"
 
   makeWrapper ${buildHaskellPackages.eta}/bin/eta $out/bin/eta \
-    --set ETA_PACKAGE_PATH "$packageConfDir"
+    --set ETA_PACKAGE_PATH "$packageConfDir" \
+    --add-flags "-pgmi ${eta-serv}/bin/eta-serv.jar"
 
   $out/bin/eta-pkg recache
   $out/bin/eta-pkg check
