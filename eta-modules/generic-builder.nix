@@ -1,8 +1,8 @@
-{ stdenv, buildPackages, buildHaskellPackages, eta-hackage }:
+{ stdenv, buildPackages, buildHaskellPackages, eta-hackage, find-maven-depends }:
 
 let
   inherit (buildPackages)
-    fetchurl writeText runCommandNoCC makeWrapper jdk;
+    fetchurl writeText writeScript runCommandNoCC makeWrapper jdk;
 
   etlasConfig = writeText "etlas-config" ''
     auto-update: False
@@ -15,22 +15,27 @@ in
 , sha256 ? null
 , src ? fetchurl { url = "mirror://hackage/${pname}-${version}.tar.gz"; inherit sha256; }
 , buildDepends ? [], setupHaskellDepends ? [], libraryHaskellDepends ? [], executableHaskellDepends ? []
+, buildTools ? [], libraryToolDepends ? [], executableToolDepends ? [], testToolDepends ? [], benchmarkToolDepends ? []
 , configureFlags ? []
 , description ? ""
 , doCheck ? true
 , editedCabalFile ? null
+, extraLibraries ? [], librarySystemDepends ? [], executableSystemDepends ? []
 , testHaskellDepends ? []
 , benchmarkHaskellDepends ? []
-, testToolDepends ? []
 , hydraPlatforms ? null
 , isExecutable ? false, isLibrary ? !isExecutable
 , license
+, doHaddock ? false
+, pkgconfigDepends ? [], libraryPkgconfigDepends ? [], executablePkgconfigDepends ? [], testPkgconfigDepends ? [], benchmarkPkgconfigDepends ? []
 , prePatch ? ""
 , preConfigure ? "", postConfigure ? ""
 , preBuild ? "", postBuild ? ""
 , installPhase ? "", preInstall ? "", postInstall ? ""
 , homepage ? "https://hackage.haskell.org/package/${pname}"
 , enableSeparateDataOutput ? false
+
+, mavenDepends ? []
 }:
 
 assert editedCabalFile != null -> revision != null;
@@ -57,9 +62,14 @@ stdenv.mkDerivation ({
   outputs = [ "out" "data" "doc" ];
   setOutputFlags = false;
 
-  buildInputs = [ jdk buildHaskellPackages.etlas buildHaskellPackages.eta buildHaskellPackages.eta-pkg ];
+  buildInputs = [
+    buildHaskellPackages.etlas buildHaskellPackages.eta buildHaskellPackages.eta-pkg
+    jdk
+  ];
 
   propagatedBuildInputs = buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends;
+
+  inherit mavenDepends;
 
   prePhases = [ "setupCompilerEnvironmentPhase" ];
   setupCompilerEnvironmentPhase = ''
@@ -79,8 +89,9 @@ stdenv.mkDerivation ({
 
     # Make Etlas work
     export HOME="$TMPDIR/home"
-    mkdir -p "$HOME/.etlas/binaries"
+    mkdir -p "$HOME/.etlas/binaries" "$HOME/.etlas/tools"
     echo "\$PATH\n\$PATH\n\$PATH" > "$HOME/.etlas/binaries/eta"
+    ln -s "${find-maven-depends}" "$HOME/.etlas/tools/coursier"
     cat "${etlasConfig}" > "$HOME/.etlas/config"
   '';
   prePatch = stdenv.lib.optionalString (editedCabalFile != null) ''
@@ -94,8 +105,6 @@ stdenv.mkDerivation ({
   '' + prePatch;
 
   inherit configureFlags;
-  # Etlas doesn't persist most configure flags.
-  # https://github.com/typelead/etlas/issues/62
   configurePhase = ''
     runHook preConfigure
 
@@ -105,8 +114,7 @@ stdenv.mkDerivation ({
 
     runHook postConfigure
   '';
-  # Supplying the flags will reconfigure, so install will build again,
-  # let's just skip build for now.
+
   buildPhase = ''
     runHook preBuild
 

@@ -1,17 +1,41 @@
-{ pkgs, haskellLib, callPackage, rtsjar, etaSrc }:
+{ pkgs, haskellLib, callPackage, rtsjar, etaSrc, mavenPackages }:
 
 with haskellLib;
 
-self: super: {
+let
+  addMavenDepend = drv: x:
+    haskellLib.overrideCabal drv (drv': {
+      mavenDepends = (drv'.mavenDepends or []) ++ [ x ];
+    });
+in
+self: super:
+let
+  addEtaServ = drv:
+    haskellLib.overrideCabal drv (drv': {
+      configureFlags = (drv'.configureFlags or []) ++
+        [
+          "--eta-option=-pgmi"
+          "--eta-option=${self.eta-serv}/bin/eta-serv.jar"
+        ];
+      buildDepends = (drv'.buildDepends or []) ++ [ self.eta-meta ];
+    });
+in
+{
 
   Cabal = null;
   ghc-boot-th = null;
+  integer-gmp = null;
   unix = null;
 
   mtl = self.mtl_2_2_2 or super.mtl;
   stm = self.stm_2_4_5_0 or super.stm;
 
+  cryptonite = addMavenDepend super.cryptonite mavenPackages.bouncycastle;
+
+  aeson = addEtaServ super.aeson;
   ansi-wl-pprint = addBuildDepend super.ansi-wl-pprint self.semigroups;
+  prettyprinter = addBuildDepend super.prettyprinter self.semigroups;
+  case-insensitive = addBuildDepend super.case-insensitive self.semigroups;
   cereal = addBuildDepend super.cereal self.fail;
   free = addBuildDepend super.free self.fail;
   parser-combinators = addBuildDepend super.parser-combinators self.semigroups;
@@ -129,6 +153,28 @@ self: super: {
    }) {};
 
   # nixpkgs 18.03 has some old versions which don't work under Eta
+  boxes = callPackage
+    ({ mkDerivation, base, QuickCheck, split, stdenv }:
+    mkDerivation {
+      pname = "boxes";
+      version = "0.1.5";
+      sha256 = "38e1782e8a458f342a0acbb74af8f55cb120756bc3af7ee7220d955812af56c3";
+      libraryHaskellDepends = [ base split ];
+      testHaskellDepends = [ base QuickCheck split ];
+      description = "2D text pretty-printing library";
+      license = stdenv.lib.licenses.bsd3;
+    }) {};
+  bsb-http-chunked = callPackage
+    ({ mkDerivation, base, bytestring, bytestring-builder, stdenv }:
+    mkDerivation {
+      pname = "bsb-http-chunked";
+      version = "0.0.0.2";
+      sha256 = "28cb750979763c815fbf69a6dc510f837b7ccbe262adf0a28ad270966737d5f4";
+      libraryHaskellDepends = [ base bytestring bytestring-builder ];
+      homepage = "http://github.com/sjakobi/bsb-http-chunked";
+      description = "Chunked HTTP transfer encoding for bytestring builders";
+      license = stdenv.lib.licenses.bsd3;
+    }) {};
   tagged = callPackage
     ({ mkDerivation, base, deepseq, stdenv, template-haskell
      , transformers

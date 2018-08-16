@@ -1,6 +1,7 @@
 #!/bin/sh
 
-PATCHES="$1"
+DIR="$(realpath "$(dirname "$0")")"
+PATCHES="$(nix-build --no-out-link -E "with import <nixpkgs> { }; callPackage "$DIR/eta-hackage.nix" { }")/patches"
 
 indent() {
   awk 'NR==1{print $0} NR>1{print "     " $0}'

@@ -42,9 +42,13 @@ let
     in stdenv.lib.makeOverridable drvScope (auto // manualArgs);
 
   mkDerivation = stdenv.lib.makeOverridable (pkgs.callPackage ./generic-builder.nix {
-    inherit eta-hackage;
+    inherit eta-hackage find-maven-depends;
     buildHaskellPackages = haskellPackages;
   });
+
+  find-maven-depends = pkgs.callPackage ./coursier/find-maven-depends.nix { };
+  fetchCoursier = pkgs.callPackage ./coursier/fetch.nix { };
+  mavenPackages = pkgs.callPackage ./maven-packages.nix { inherit fetchCoursier; };
 
   haskellLib = pkgs.haskell.lib;
   initialPackages = self:
@@ -70,7 +74,7 @@ let
       } self)
       (import ./ignore-patch-list.nix);
   configurationEta = self: import ./configuration-eta.nix {
-    inherit pkgs haskellLib rtsjar;
+    inherit pkgs haskellLib rtsjar mavenPackages;
     inherit (self) callPackage;
     etaSrc = haskellPackages.eta.src;
   } self;
