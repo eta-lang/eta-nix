@@ -42,6 +42,7 @@ let
     in stdenv.lib.makeOverridable drvScope (auto // manualArgs);
 
   mkDerivation = stdenv.lib.makeOverridable (pkgs.callPackage ./generic-builder.nix {
+    inherit (pkgs.haskellPackages) jailbreak-cabal;
     inherit eta-hackage find-maven-depends;
     buildHaskellPackages = haskellPackages;
   });

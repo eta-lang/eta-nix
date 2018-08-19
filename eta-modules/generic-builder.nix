@@ -1,4 +1,4 @@
-{ stdenv, buildPackages, buildHaskellPackages, eta-hackage, find-maven-depends }:
+{ stdenv, buildPackages, buildHaskellPackages, jailbreak-cabal, eta-hackage, find-maven-depends }:
 
 let
   inherit (buildPackages)
@@ -25,10 +25,11 @@ in
 , benchmarkHaskellDepends ? []
 , hydraPlatforms ? null
 , isExecutable ? false, isLibrary ? !isExecutable
+, jailbreak ? false
 , license
 , doHaddock ? false
 , pkgconfigDepends ? [], libraryPkgconfigDepends ? [], executablePkgconfigDepends ? [], testPkgconfigDepends ? [], benchmarkPkgconfigDepends ? []
-, prePatch ? ""
+, prePatch ? "", postPatch ? ""
 , preConfigure ? "", postConfigure ? ""
 , preBuild ? "", postBuild ? ""
 , installPhase ? "", preInstall ? "", postInstall ? ""
@@ -103,6 +104,10 @@ stdenv.mkDerivation ({
       patches=("$ETA_PATCH")
     fi
   '' + prePatch;
+  postPatch = stdenv.lib.optionalString jailbreak ''
+    echo "Run jailbreak-cabal to lift version restrictions on build inputs."
+    ${jailbreak-cabal}/bin/jailbreak-cabal ${pname}.cabal
+  '' + postPatch;
 
   inherit configureFlags;
   configurePhase = ''
