@@ -12210,9 +12210,9 @@ inherit (pkgs) mesa;};
          }) {};
       "etlas" = callPackage
         ({ mkDerivation, array, async, base, base16-bytestring, binary
-         , bytestring, Cabal, containers, cryptohash-sha256, deepseq
+         , bytestring, Cabal, containers, cryptohash-sha256, deepseq, dhall
          , directory, echo, edit-distance, etlas-cabal, filepath
-         , hackage-security, hashable, HTTP, mtl, network, network-uri
+         , hackage-security, hashable, HTTP, microlens, mtl, network, network-uri
          , pretty, process, random, stdenv, stm, tar, time, unix, zlib
          }:
          mkDerivation {
@@ -12224,8 +12224,8 @@ inherit (pkgs) mesa;};
            setupHaskellDepends = [ base Cabal filepath process ];
            libraryHaskellDepends = [
              array async base base16-bytestring binary bytestring containers
-             cryptohash-sha256 deepseq directory echo edit-distance etlas-cabal
-             filepath hackage-security hashable HTTP mtl network network-uri
+             cryptohash-sha256 deepseq directory dhall echo edit-distance etlas-cabal
+             filepath hackage-security hashable HTTP microlens mtl network network-uri
              pretty process random stm tar time unix zlib
            ];
            executableHaskellDepends = [ base directory etlas-cabal filepath ];
@@ -12237,7 +12237,7 @@ inherit (pkgs) mesa;};
          }) {};
       "etlas-cabal" = callPackage
         ({ mkDerivation, array, base, binary, bytestring, containers
-         , deepseq, directory, filepath, pretty, process, stdenv, time, unix
+         , deepseq, directory, filepath, parsec, pretty, process, stdenv, time, unix
          }:
          mkDerivation {
            pname = "etlas-cabal";
@@ -12245,7 +12245,7 @@ inherit (pkgs) mesa;};
            src = ./etlas/etlas-cabal;
            libraryHaskellDepends = [
              array base binary bytestring containers deepseq directory filepath
-             pretty process time unix
+             parsec pretty process time unix
            ];
            doHaddock = false;
            doCheck = false;
