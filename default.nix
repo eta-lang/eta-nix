@@ -12237,7 +12237,7 @@ inherit (pkgs) mesa;};
          }) {};
       "etlas-cabal" = callPackage
         ({ mkDerivation, array, base, binary, bytestring, containers
-         , deepseq, directory, filepath, pretty, process, stdenv, time, unix
+         , deepseq, directory, filepath, parsec, pretty, process, stdenv, time, unix
          }:
          mkDerivation {
            pname = "etlas-cabal";
@@ -12245,7 +12245,7 @@ inherit (pkgs) mesa;};
            src = ./etlas/etlas-cabal;
            libraryHaskellDepends = [
              array base binary bytestring containers deepseq directory filepath
-             pretty process time unix
+             parsec pretty process time unix
            ];
            doHaddock = false;
            doCheck = false;
