@@ -3,6 +3,16 @@
 (import ./eta.nix { inherit pkgs; }).override {
   overrides = self: super: {
     Cabal = null;
-    binary = pkgs.haskell.lib.dontCheck (self.callPackage ./eta-modules/binary-0.8.5.1.nix { });
+    semigroupoids = pkgs.haskell.lib.overrideCabal super.semigroupoids (drv: {
+      postPatch = ''
+        sed -iE 's/tagged >=.*/tagged/g' semigroupoids.cabal
+      '';
+    });
+    dhall-to-etlas = pkgs.haskell.lib.overrideCabal super.dhall-to-etlas (drv: {
+      preCompileBuildDriver = ''
+        setupCompileFlags="$setupCompileFlags -hide-package etlas-cabal"
+      '';
+    });
+    tasty = pkgs.haskell.lib.doJailbreak super.tasty;
   };
 }
