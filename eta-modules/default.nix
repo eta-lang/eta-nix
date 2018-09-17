@@ -9,17 +9,16 @@
 , haskell
 , pkgs
 
+, etaHaskellPackages ? import ../. { inherit pkgs; }
 , eta-hackage ? import ./eta-hackage.nix { inherit fetchFromGitHub; }
 , hackage-packages ? import <nixpkgs/pkgs/development/haskell-modules/hackage-packages.nix>
 }:
 
 let
-  haskellPackages = import ../. { inherit pkgs; };
-
   rtsjar = stdenv.mkDerivation {
     name = "rts.jar";
-    buildInputs = [ haskellPackages.eta-build pkgs.jdk ];
-    src = haskellPackages.eta.src;
+    buildInputs = [ etaHaskellPackages.eta-build pkgs.jdk ];
+    src = etaHaskellPackages.eta.src;
     buildPhase = ''
       eta-build libraries/rts/build/rts.jar
     '';
@@ -44,7 +43,7 @@ let
   mkDerivation = stdenv.lib.makeOverridable (pkgs.callPackage ./generic-builder.nix {
     inherit (pkgs.haskellPackages) jailbreak-cabal;
     inherit eta-hackage find-maven-depends;
-    buildHaskellPackages = haskellPackages;
+    buildHaskellPackages = etaHaskellPackages;
   });
 
   find-maven-depends = pkgs.callPackage ./coursier/find-maven-depends.nix { };
@@ -63,7 +62,7 @@ let
       inherit mkDerivation callPackage;
       etaWithPackages = selectFrom:
         callPackage ./with-packages-wrapper.nix {
-          buildHaskellPackages = haskellPackages;
+          buildHaskellPackages = etaHaskellPackages;
           packages = selectFrom self;
         };
     };
@@ -77,7 +76,7 @@ let
   configurationEta = self: import ./configuration-eta.nix {
     inherit pkgs haskellLib rtsjar mavenPackages;
     inherit (self) callPackage;
-    etaSrc = haskellPackages.eta.src;
+    etaSrc = etaHaskellPackages.eta.src;
   } self;
 in
 stdenv.lib.makeExtensible

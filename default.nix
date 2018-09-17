@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}
+, overrides ? self: super: { }
+}:
 
 (import ./eta.nix { inherit pkgs; }).override {
   overrides = self: super: {
@@ -14,5 +16,5 @@
       '';
     });
     tasty = pkgs.haskell.lib.doJailbreak super.tasty;
-  };
+  } // overrides self super;
 }
