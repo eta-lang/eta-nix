@@ -19,6 +19,12 @@ let
         ];
       buildDepends = (drv'.buildDepends or []) ++ [ self.eta-meta ];
     });
+  addHappyAlex = drv:
+    haskellLib.overrideCabal drv (drv': {
+      preConfigure = ''
+        export PATH="${pkgs.haskellPackages.happy}/bin:${pkgs.haskellPackages.alex}/bin:$PATH"
+      '';
+    });
 in
 {
 
@@ -27,6 +33,7 @@ in
   integer-gmp = null;
   unix = null;
 
+  constraints = self.constraints_0_10 or super.constraints;
   mtl = self.mtl_2_2_2 or super.mtl;
   stm = self.stm_2_4_5_0 or super.stm;
 
@@ -38,21 +45,20 @@ in
   cereal = addBuildDepend super.cereal self.fail;
   dhall = doJailbreak super.dhall;
   free = addBuildDepend super.free self.fail;
+  hedgehog = addEtaServ super.hedgehog;
   insert-ordered-containers = doJailbreak super.insert-ordered-containers;
-  language-javascript = overrideCabal super.language-javascript (drv: {
-    preConfigure = ''
-      export PATH="${pkgs.haskellPackages.happy}/bin:${pkgs.haskellPackages.alex}/bin:$PATH"
-    '';
-  });
+  language-javascript = addHappyAlex super.language-javascript;
   optparse-applicative = addEtaServ super.optparse-applicative;
   parser-combinators = addBuildDepend super.parser-combinators self.semigroups;
   parsers = addEtaServ super.parsers;
+  pretty-show = addHappyAlex super.pretty-show_1_7;
   prettyprinter = addBuildDepend super.prettyprinter self.semigroups;
   purescript = addEtaServ (doJailbreak super.purescript);
   transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
   uniplate = addEtaServ super.uniplate;
   wai-app-static = addEtaServ super.wai-app-static;
   wai-websockets = addEtaServ super.wai-websockets;
+  wl-pprint-annotated = addBuildDepend super.wl-pprint-annotated self.semigroups;
 
   eta-serv = callPackage
     ({ mkDerivation, stdenv }:
