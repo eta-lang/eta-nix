@@ -35,7 +35,7 @@ in
 
   constraints = self.constraints_0_10 or super.constraints;
   mtl = self.mtl_2_2_2 or super.mtl;
-  stm = self.stm_2_4_5_0 or super.stm;
+  stm = self.stm_2_4_5_1 or self.stm_2_4_5_0 or super.stm;
 
   cryptonite = addMavenDepend super.cryptonite mavenPackages.bouncycastle;
 
