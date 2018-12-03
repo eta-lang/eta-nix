@@ -52,6 +52,7 @@ in
   parser-combinators = addBuildDepend super.parser-combinators self.semigroups;
   parsers = addEtaServ super.parsers;
   pretty-show = addHappyAlex super.pretty-show_1_7;
+  natural-transformation = addBuildDepend super.natural-transformation self.semigroups;
   prettyprinter = addBuildDepend super.prettyprinter self.semigroups;
   purescript = addEtaServ (doJailbreak super.purescript);
   transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
