@@ -53,6 +53,7 @@ in
   parsers = addEtaServ super.parsers;
   pretty-show = addHappyAlex super.pretty-show_1_7;
   natural-transformation = addBuildDepend super.natural-transformation self.semigroups;
+  attoparsec-iso8601 = doJailbreak super.attoparsec-iso8601;
   prettyprinter = addBuildDepend super.prettyprinter self.semigroups;
   purescript = addEtaServ (doJailbreak super.purescript);
   transformers-compat = addBuildDepend super.transformers-compat self.generic-deriving;
